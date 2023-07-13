@@ -63,7 +63,7 @@ const FoodCard = ({ recipe }) => {
         <CardMedia
           component="img"
           height="194"
-          image={recipe["image-name"]}
+          image={recipe.imageName}
           alt={recipe.label}
         />
         <CardContent>
@@ -71,7 +71,7 @@ const FoodCard = ({ recipe }) => {
             {recipe.price}$
           </Typography>
           <Typography variant="h5" component="h5">
-            {recipe["meal-type"]}
+            {recipe.mealType}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

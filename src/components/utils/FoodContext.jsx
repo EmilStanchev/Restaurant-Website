@@ -1,10 +1,11 @@
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../components/config/firebase";
+import { getDocs, collection, addDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 const API_ID = process.env.REACT_APP_API_ID;
 const API_KEY = process.env.REACT_APP_API_KEY;
 const foodName = "soup";
-
+const foodsCollectionRef = collection(db, "foods");
+console.log(foodsCollectionRef);
 export const FetchData = async () => {
   try {
     const response = await fetch(
@@ -19,7 +20,6 @@ export const FetchData = async () => {
   }
 };
 export const GetAllFoods = async () => {
-  const foodsCollectionRef = collection(db, "foods");
   try {
     const rawData = await getDocs(foodsCollectionRef);
     const data = rawData.docs.map((document) => ({
@@ -32,4 +32,18 @@ export const GetAllFoods = async () => {
     console.log(error);
     return error;
   }
+};
+export const SaveFoods = async (foods) => {
+  foods?.map(async (food) => {
+    console.log(food);
+    let dbFood = {
+      name: food.label,
+      price: 12,
+      imageName: food.images.SMALL.url,
+      cautions: food.cautions,
+      mealType: food.mealType,
+      ingredients: food.ingredientLines,
+    };
+    await addDoc(foodsCollectionRef, dbFood);
+  });
 };
