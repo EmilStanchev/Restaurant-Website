@@ -3,9 +3,9 @@ import { db } from "../config/firebase";
 
 const API_ID = process.env.REACT_APP_API_ID;
 const API_KEY = process.env.REACT_APP_API_KEY;
-const foodName = "soup";
+const foodName = "lunch";
 const foodsCollectionRef = collection(db, "foods");
-console.log(foodsCollectionRef);
+
 export const FetchData = async () => {
   try {
     const response = await fetch(
@@ -19,6 +19,7 @@ export const FetchData = async () => {
     return error;
   }
 };
+
 export const GetAllFoods = async () => {
   try {
     const rawData = await getDocs(foodsCollectionRef);
@@ -33,6 +34,25 @@ export const GetAllFoods = async () => {
     return error;
   }
 };
+
+export const SearchByMealType = async (type) => {
+  try {
+    console.log(type);
+    const rawData = await getDocs(foodsCollectionRef);
+    const data = rawData.docs
+      .map((document) => ({
+        ...document.data(),
+        id: document.id,
+      }))
+      .filter((item) => item.mealType.includes(type));
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const SaveFoods = async (foods) => {
   foods?.map(async (food) => {
     console.log(food);
@@ -46,4 +66,10 @@ export const SaveFoods = async (foods) => {
     };
     await addDoc(foodsCollectionRef, dbFood);
   });
+};
+
+export const GetFiveElements = async () => {
+  const data = await GetAllFoods();
+  console.log(data);
+  return data?.slice(0, 8);
 };

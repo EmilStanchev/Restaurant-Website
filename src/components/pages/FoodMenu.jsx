@@ -1,28 +1,59 @@
-import { useState } from "react";
-import { GetAllFoods, FetchData } from "../utils/FoodContext";
+import { Grid } from "@mui/material";
+import CustomButton from "../UI/CustomButton";
+import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
+import LunchDiningIcon from "@mui/icons-material/LunchDining";
+import SoupKitchenIcon from "@mui/icons-material/SoupKitchen";
+import { GetFiveElements, SearchByMealType } from "../utils/FoodContext";
+import { useEffect, useState } from "react";
 import FoodCards from "../UI/FoodItems/Cards";
-import { Button } from "@mui/material";
-import { SaveFoods } from "../utils/FoodContext.jsx";
 
 const FoodMenu = () => {
-  const [data, setData] = useState([]);
-  const [isFromDb, setIsFromDb] = useState(false);
-  const clickHandler = async () => {
-    const recipes = await GetAllFoods();
-    setIsFromDb(true);
-    setData(recipes);
+  const [foods, setFoods] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+
+  const foodFilter = async (text) => {
+    setFoods(await SearchByMealType(text));
+    setIsFiltered(true);
   };
-  const apiCall = async () => {
-    const recipes = await FetchData();
-    setData(recipes);
-    await SaveFoods(data);
-  };
+
   return (
-    <>
-      <Button onClick={clickHandler}>Click me to get info</Button>
-      <Button onClick={() => apiCall()}>Click me for api call</Button>
-      {isFromDb ? <FoodCards recipes={data} /> : "hi"}
-    </>
+    <Grid
+      container
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "column",
+        gap: 3,
+      }}
+    >
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          margin: 2,
+          gap: 3,
+        }}
+      >
+        <CustomButton
+          text="Breakfast"
+          icon={FreeBreakfastIcon}
+          onClick={() => foodFilter("breakfast")}
+        />
+        <CustomButton
+          text="Lunch"
+          icon={LunchDiningIcon}
+          onClick={() => foodFilter("lunch/dinner")}
+        />
+        <CustomButton
+          text="Dinner"
+          icon={SoupKitchenIcon}
+          onClick={() => foodFilter("dinner")}
+        />
+      </Grid>
+      <FoodCards recipes={foods} />
+    </Grid>
   );
 };
 export default FoodMenu;

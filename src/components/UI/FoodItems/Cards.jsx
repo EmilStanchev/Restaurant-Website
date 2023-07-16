@@ -7,7 +7,7 @@ const FoodCards = ({ recipes }) => {
       container
       sx={{
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "center",
         flexWrap: "wrap",
         gap: 8,
       }}

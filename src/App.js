@@ -1,5 +1,5 @@
 import { ThemeProviderWrapper } from "./themes/Theme";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Grid } from "@mui/material";
 import SideBar from "./components/navigation/SideBar";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -15,8 +15,23 @@ const App = () => {
     <ThemeProviderWrapper>
       <CssBaseline />
 
-      <SideBar pages={pages} />
-      <AppRouter />
+      <Grid
+        container
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: 20,
+        }}
+      >
+        <Grid>
+          <SideBar pages={pages} />
+        </Grid>
+        <Grid>
+          <AppRouter />
+        </Grid>
+      </Grid>
     </ThemeProviderWrapper>
   );
 };

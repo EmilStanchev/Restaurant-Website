@@ -26,7 +26,7 @@ export default function SideBar({ pages }) {
     setIsOpen(!isOpen);
   };
   return (
-    <AppBar position="static" sx={{}}>
+    <AppBar position="fixed" sx={{ backgroundColor: "transparent" }}>
       <Toolbar
         sx={{ display: "flex", justifyContent: "space-between", gap: 7 }}
       >

@@ -16,6 +16,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Grid } from "@mui/material";
 import Ingredients from "./Ingredients";
+import MealTypeContent from "./MealTypeContent";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,7 +41,7 @@ const FoodCard = ({ recipe }) => {
       <Card
         sx={{
           width: 345,
-
+          height: `${expanded ? "auto" : "445"}`,
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
@@ -59,6 +60,7 @@ const FoodCard = ({ recipe }) => {
             </IconButton>
           }
           title={recipe.name}
+          titleTypographyProps={{ fontSize: "14px" }}
         />
         <CardMedia
           component="img"
@@ -70,9 +72,7 @@ const FoodCard = ({ recipe }) => {
           <Typography variant="h4" component="h4" sx={{ float: "right" }}>
             {recipe.price}$
           </Typography>
-          <Typography variant="h5" component="h5">
-            {recipe.mealType}
-          </Typography>
+          <MealTypeContent types={recipe.mealType} />
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
