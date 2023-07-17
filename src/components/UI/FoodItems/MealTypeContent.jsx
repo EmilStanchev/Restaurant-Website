@@ -5,7 +5,7 @@ const MealTypeContent = ({ types }) => {
     <>
       {types.map((type) => {
         return (
-          <Typography variant="h5" component="h5">
+          <Typography key={type} variant="h5" component="h5">
             {type}
           </Typography>
         );

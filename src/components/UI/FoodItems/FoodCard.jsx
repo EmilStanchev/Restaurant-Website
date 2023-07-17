@@ -35,10 +35,10 @@ const FoodCard = ({ recipe }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   return (
     <Grid item>
       <Card
+        key={recipe.id}
         sx={{
           width: 345,
           height: `${expanded ? "auto" : "445"}`,

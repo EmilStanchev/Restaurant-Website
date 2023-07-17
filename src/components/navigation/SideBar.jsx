@@ -25,6 +25,7 @@ export default function SideBar({ pages }) {
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
+  const menuIconColor = theme.isDark ? "black" : "white";
   return (
     <AppBar position="fixed" sx={{ backgroundColor: "transparent" }}>
       <Toolbar
@@ -37,9 +38,8 @@ export default function SideBar({ pages }) {
           onClick={toggleDrawer}
           sx={{ mr: 2 }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: `${menuIconColor}` }} />
         </IconButton>
-        <IconButton></IconButton>
         <Link href="/">
           <IconButton>
             <img

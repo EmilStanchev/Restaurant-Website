@@ -3,7 +3,7 @@ import { db } from "../config/firebase";
 
 const API_ID = process.env.REACT_APP_API_ID;
 const API_KEY = process.env.REACT_APP_API_KEY;
-const foodName = "lunch";
+const foodName = "dessert";
 const foodsCollectionRef = collection(db, "foods");
 
 export const FetchData = async () => {
@@ -37,7 +37,6 @@ export const GetAllFoods = async () => {
 
 export const SearchByMealType = async (type) => {
   try {
-    console.log(type);
     const rawData = await getDocs(foodsCollectionRef);
     const data = rawData.docs
       .map((document) => ({
@@ -45,7 +44,6 @@ export const SearchByMealType = async (type) => {
         id: document.id,
       }))
       .filter((item) => item.mealType.includes(type));
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -70,6 +68,5 @@ export const SaveFoods = async (foods) => {
 
 export const GetFiveElements = async () => {
   const data = await GetAllFoods();
-  console.log(data);
   return data?.slice(0, 8);
 };
