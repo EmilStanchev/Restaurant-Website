@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { TextField, Button, Grid } from "@mui/material";
 import emailjs from "emailjs-com";
 
@@ -6,6 +6,8 @@ const ContactForm = () => {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const messageRef = useRef(null);
+  const [errors, setErrors] = useState({});
+  const [isEmailSent, setIsEmailSent] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,51 +40,45 @@ const ContactForm = () => {
   };
 
   return (
-    <Grid item sx={{}}>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <TextField
-          label="Name"
-          variant="outlined"
-          sx={{ marginBottom: 2 }}
-          inputRef={nameRef}
-          required
-          fullWidth
-        />
-        <TextField
-          label="Email"
-          variant="outlined"
-          sx={{ marginBottom: 2 }}
-          inputRef={emailRef}
-          required
-          fullWidth
-          type="email"
-        />
-        <TextField
-          label="Message"
-          variant="outlined"
-          multiline
-          rows={4}
-          sx={{ marginBottom: 2 }}
-          inputRef={messageRef}
-          required
-          fullWidth
-        />
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ width: "100%", marginTop: 2 }}
-        >
-          Submit
-        </Button>
-      </form>
-    </Grid>
+    <form onSubmit={handleSubmit}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Name"
+            variant="standard"
+            inputRef={nameRef}
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Email"
+            variant="standard"
+            inputRef={emailRef}
+            required
+            fullWidth
+            type="email"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Message"
+            variant="standard"
+            multiline
+            rows={4}
+            inputRef={messageRef}
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" type="submit" fullWidth>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
   );
 };
 
