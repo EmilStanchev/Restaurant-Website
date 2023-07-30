@@ -1,6 +1,14 @@
 import { Grid, Link, Typography } from "@mui/material";
 import notFoundImg from "../../assets/image404.png";
+import CustomButton from "../UI/CustomButton";
+import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate } from "react-router-dom";
+
 const ErrorPage = () => {
+  const navigate = useNavigate();
+  const clickHandler = () => {
+    navigate("/");
+  };
   return (
     <Grid
       container
@@ -47,15 +55,11 @@ const ErrorPage = () => {
           marginTop: 2,
         }}
       >
-        <Link
-          href="/"
-          fontSize={24}
-          underline="none"
-          color="secondary"
-          sx={{ textAlign: "center", "&:hover": { color: "orange" } }}
-        >
-          Go home
-        </Link>
+        <CustomButton
+          label="Go home"
+          icon={HomeIcon}
+          onClick={() => clickHandler()}
+        />
       </Grid>
     </Grid>
   );
