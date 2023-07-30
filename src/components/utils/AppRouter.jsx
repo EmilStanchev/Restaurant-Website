@@ -3,6 +3,7 @@ import FoodMenu from "../pages/FoodMenu";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
+import AboutUs from "../pages/AboutUs";
 
 const AppRouter = () => {
   return (
@@ -10,6 +11,8 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<FoodMenu />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+
         <Route path="/contacts" element={<Contact />} />
 
         <Route path="*" element={<ErrorPage />} />
