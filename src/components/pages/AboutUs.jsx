@@ -1,12 +1,12 @@
 import { Container, Grid, Typography } from "@mui/material";
-import { Sections } from "../UI/AboutUsPage/Sections";
-import TeamMemberCard from "../UI/AboutUsPage/TeamMemberCard";
+import { Sections } from "../UI/AboutUsItems/Sections";
+import TeamMemberCard from "../UI/AboutUsItems/TeamMemberCard";
 import jane from "../../assets/femaleChief.png";
 import john from "../../assets/maleChief.jfif";
 import japaneseMaleChief from "../../assets/japaneseMaleChief.jfif";
 import japaneseFemaleChief from "../../assets/japaneseFemaleChief.jfif";
 import aboutUsImg from "../../assets/restorauntBg.png";
-import NavBar from "../UI/AboutUsPage/NavBar";
+import NavBar from "../UI/AboutUsItems/NavBar";
 
 const sections = [
   {
