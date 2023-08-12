@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import ReservateTable from "../UI/ReservationItems/ReservateTable";
 import InformationTable from "../UI/ReservationItems/InformationTable";
 
+import bgImg from "../../assets/mood.png";
 const openHours = [
   { day: "Sunday", hours: "8:00 am - 11:00 pm" },
   { day: "Monday", hours: "8:00 am - 11:00 pm" },
@@ -14,18 +15,22 @@ const openHours = [
 const Reservation = () => {
   return (
     <Grid
+      id="containerr"
       container
       sx={{
         display: "flex",
         justifyContent: "center",
-        gap: 5,
         flexWrap: "wrap",
+        backgroundImage: `url(${bgImg})`,
+        backgroundSize: "cover",
+        minHeight: "103vh",
+        marginTop: -18.8,
       }}
     >
-      <Grid item xs={10} md={4}>
+      <Grid item xs={10} md={6} lg={4} sx={{ marginTop: 20 }}>
         <ReservateTable />
       </Grid>
-      <Grid item xs={10} md={4} sx={{ padding: 4, marginTop: 1 }}>
+      <Grid item xs={10} md={6} lg={4} sx={{ marginTop: 20 }}>
         <InformationTable openHours={openHours} />
       </Grid>
     </Grid>

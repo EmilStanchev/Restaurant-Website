@@ -1,10 +1,20 @@
-import { getDocs, collection, addDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 
 const API_ID = process.env.REACT_APP_API_ID;
 const API_KEY = process.env.REACT_APP_API_KEY;
+
 const foodName = "dessert";
 const foodsCollectionRef = collection(db, "foods");
+const clientsCollectionRef = collection(db, "clients");
+const tablesCollectionRef = collection(db, "tables");
+const reservationsCollectionRef = collection(db, "reservations");
 
 export const FetchData = async () => {
   try {
@@ -64,6 +74,69 @@ export const SaveFoods = async (foods) => {
     };
     await addDoc(foodsCollectionRef, dbFood);
   });
+};
+
+export const AddClient = async (client) => {
+  const rawDbClients = await getDocs(clientsCollectionRef);
+  const dbClients = rawDbClients?.docs?.map((document) => ({
+    ...document.data(),
+    id: document.id,
+  }));
+
+  const currentClient = dbClients?.find(
+    (currClient) =>
+      currClient.name === client.name && currClient.email === client.email
+  );
+
+  if (currentClient) {
+    console.log("problem");
+  } else await addDoc(clientsCollectionRef, client);
+};
+
+export const MakeReservation = async (formClient, formReservation) => {
+  const getClient = async () => {
+    const rawClients = await getDocs(clientsCollectionRef);
+    return rawClients.docs.map((document) => ({
+      ...document.data(),
+      id: document.id,
+    }));
+  };
+
+  const getTable = async () => {
+    const rawTables = await getDocs(tablesCollectionRef);
+    return rawTables.docs.map((document) => ({
+      ...document.data(),
+      id: document.id,
+    }));
+  };
+
+  const clients = await getClient();
+  const tables = await getTable();
+
+  const client = clients.find(
+    (dbClient) =>
+      dbClient.name === formClient.name && dbClient.Phone === formClient.Phone
+  );
+
+  const table = tables.find(
+    (table) =>
+      table.Capacity === formReservation.guestsNumber && !table.Reserved
+  );
+
+  if (client && table) {
+    const reservation = {
+      ClientId: client.id,
+      TableId: table.id,
+      date: formReservation.date,
+    };
+
+    await addDoc(reservationsCollectionRef, reservation);
+    await updateDoc(doc(db, "tables", table.id), { Reserved: true });
+
+    return true;
+  }
+
+  return false;
 };
 
 export const GetFiveElements = async () => {

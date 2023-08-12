@@ -19,7 +19,10 @@ const PhoneField = ({ onChange, value }) => {
             international
             defaultCountry="US"
             value={value}
-            onChange={handleChangePhone}
+            onChange={() => {
+              handleChangePhone();
+              onChange();
+            }}
             placeholder="Enter phone number"
             style={{
               height: "56px",

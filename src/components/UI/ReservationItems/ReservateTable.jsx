@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
+import { AddClient, MakeReservation } from "../../utils/FoodContext";
 import { ThemeContext } from "../../../themes/Theme";
 import PhoneField from "./PhoneField";
 
@@ -22,7 +22,8 @@ const ReservateTable = () => {
     date: "",
     hour: "",
   });
-
+  const [message, setMessage] = useState("");
+  const [reserved, setReserved] = useState(false);
   const theme = useContext(ThemeContext);
 
   const handleChange = (e) => {
@@ -33,20 +34,38 @@ const ReservateTable = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    const client = {
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+    };
+    await AddClient(client);
+    const [hour, minute] = formData.hour.split(":");
+    const date = new Date(formData.date);
+    date.setHours(hour);
+    date.setMinutes(minute);
+    const reservation = { guestsNumber: formData.guests, date: date };
+    const res = await MakeReservation(client, reservation);
+    console.log(res);
+    res
+      ? setMessage("You reserved table")
+      : setMessage(
+          "There aren`t free table for this date for your requirments"
+        );
+    setReserved(res);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
       style={{
-        border: "1px solid orange",
         borderRadius: 12,
         padding: 20,
-        backgroundColor: `${theme.isDark ? "#F8E8EE" : "#2c2c2c"}`,
+        backgroundColor: `${theme.isDark ? "#F8E8EE" : "#111111"}`,
+        //backgroundColor: `${theme.isDark ? "#F8E8EE" : "#16003B"}`,
+        opacity: `${theme.isDark ? "1" : "0.9"}`,
         color: "white",
       }}
     >
@@ -54,7 +73,7 @@ const ReservateTable = () => {
         variant="h3"
         sx={{
           fontFamily: "Allura, cursive",
-          color: "#8B008B",
+          color: `${theme.isDark ? "#8B008B" : "white"}`,
           textShadow: "2px 2px 4px #888",
           textAlign: "center",
           marginBottom: "20px",
@@ -88,7 +107,7 @@ const ReservateTable = () => {
         />
       </Stack>
 
-      <PhoneField />
+      <PhoneField onChange={() => handleChange()} value={formData.phone} />
       <FormControl
         variant="outlined"
         fullWidth
@@ -151,6 +170,11 @@ const ReservateTable = () => {
         >
           Reserve
         </Button>
+        <Typography
+          sx={{ color: `${reserved ? "green" : "red"}`, fontSize: "28px" }}
+        >
+          {message}
+        </Typography>
       </Typography>
     </form>
   );

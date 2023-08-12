@@ -26,7 +26,7 @@ const App = () => {
           flexWrap: "wrap",
           justifyContent: "center",
           flexDirection: "column",
-          gap: 20,
+          gap: 15,
         }}
       >
         <Grid>
