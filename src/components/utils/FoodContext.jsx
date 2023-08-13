@@ -10,7 +10,7 @@ import { db } from "../config/firebase";
 const API_ID = process.env.REACT_APP_API_ID;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const foodName = "dessert";
+const foodName = "breakfast";
 const foodsCollectionRef = collection(db, "foods");
 const clientsCollectionRef = collection(db, "clients");
 const tablesCollectionRef = collection(db, "tables");
@@ -37,7 +37,6 @@ export const GetAllFoods = async () => {
       ...document.data(),
       id: document.id,
     }));
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -63,7 +62,6 @@ export const SearchByMealType = async (type) => {
 
 export const SaveFoods = async (foods) => {
   foods?.map(async (food) => {
-    console.log(food);
     let dbFood = {
       name: food.label,
       price: 12,
@@ -89,7 +87,6 @@ export const AddClient = async (client) => {
   );
 
   if (currentClient) {
-    console.log("problem");
   } else await addDoc(clientsCollectionRef, client);
 };
 

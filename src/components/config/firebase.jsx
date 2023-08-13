@@ -1,9 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+const apiKey = process.env.REACT_APP_FIREBASE_APIKEY;
+const projectId = process.env.REACT_APP_FIREBASE_PROJECTID;
 const firebaseConfig = {
-  apiKey: "AIzaSyC9EgWXijRKF0m4dY6ojYVtkmgK0u9tfJE",
+  apiKey: `${apiKey}`,
   authDomain: "foodproject-test.firebaseapp.com",
-  projectId: "foodproject-test",
+  projectId: `${projectId}`,
   storageBucket: "foodproject-test.appspot.com",
   messagingSenderId: "35064237359",
   appId: "1:35064237359:web:e3a935ace5843ef5a5a5da",

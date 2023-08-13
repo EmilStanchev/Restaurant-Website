@@ -22,7 +22,6 @@ const FoodMenu = () => {
       setFoods(await GetFiveElements());
     }
     topFive();
-    console.log(foods);
   }, []);
   return (
     <Grid
