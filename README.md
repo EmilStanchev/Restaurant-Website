@@ -1,4 +1,10 @@
+
 # Getting Started
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-070A52?style=for-the-badge&logo=react&labelColor=070A52)](https://foodproject-test.web.app/)
+
+
+
+
 <details closed>
 <summary style="font-size:16px">How to Install and Run the Project?  <span style="font-size:34px">⚙️</span></summary>
 <ol>
