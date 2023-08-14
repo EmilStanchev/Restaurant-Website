@@ -1,6 +1,6 @@
 
 # Getting Started
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-070A52?style=for-the-badge&logo=react&labelColor=070A52)](https://foodproject-test.web.app/){:target="_blank"}
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-070A52?style=for-the-badge&logo=react&labelColor=070A52)](https://foodproject-test.web.app/)
 
 
 
